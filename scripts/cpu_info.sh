@@ -18,7 +18,7 @@ get_percent()
       cpucores=$(sysctl -n hw.logicalcpu)
       cpuusage=$(( cpuvalue / cpucores ))
       percent="$cpuusage%"
-      normalize_percent_len $percent
+      normalize_percent_len $percent 3
       ;;
 
     OpenBSD)

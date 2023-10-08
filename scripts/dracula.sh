@@ -32,6 +32,9 @@ main()
   time_format=$(get_tmux_option "@dracula-time-format" "")
   IFS=' ' read -r -a plugins <<< $(get_tmux_option "@dracula-plugins" "battery network weather")
   show_empty_plugins=$(get_tmux_option "@dracula-show-empty-plugins" true)
+  gaode_map_token=$(get_tmux_option "@dracula-gaode-map-token" "")
+  openweather_token=$(get_tmux_option "@dracula-openweather-token" "")
+  fixed_location_show=$(get_tmux_option "@dracula-fixed-location-show" "")
 
   # Dracula Color Pallette
   white='#f8f8f2'
@@ -230,6 +233,10 @@ main()
     elif [ $plugin = "weather" ]; then
       IFS=' ' read -r -a colors <<< $(get_tmux_option "@dracula-weather-colors" "orange dark_gray")
       script="#($current_dir/weather_wrapper.sh $show_fahrenheit $show_location $fixed_location)"
+
+    elif [ $plugin = "gaode_weather" ]; then
+      IFS=' ' read -r -a colors <<< $(get_tmux_option "@dracula-weather-colors" "orange dark_gray")
+      script="#($current_dir/gaode_weather.sh $show_fahrenheit $show_location $fixed_location $gaode_map_token $openweather_token $fixed_location_show)"
 
     elif [ $plugin = "time" ]; then
       IFS=' ' read -r -a colors <<< $(get_tmux_option "@dracula-time-colors" "dark_purple white")

@@ -25,7 +25,10 @@ get_tmux_window_option() {
 # normalize the percentage string to always have a length of 5
 normalize_percent_len() {
   # the max length that the percent can reach, which happens for a two digit number with a decimal house: "99.9%"
-  max_len=5
+  max_len=$2
+  if [ $max_len == "" ]; then
+    max_len=5
+  fi
   percent_len=${#1}
   let diff_len=$max_len-$percent_len
   # if the diff_len is even, left will have 1 more space than right
